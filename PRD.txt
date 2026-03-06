@@ -1,0 +1,34 @@
+PROJECT TITLE
+AI-Driven Sales Analytics and Forecasting Dashboard
+
+PROBLEM STATEMENT
+Sales teams often depend on manual reports and historical analysis, which limits timely decision-making. There is a need for an automated system that analyzes sales data, predicts future trends, and presents insights in an easy-to-understand dashboard.
+
+GOALS AND OBJECTIVES
+- Analyze historical sales data to identify patterns
+- Forecast future sales using machine learning models
+- Automate data processing and dashboard updates
+- Provide clear visual insights for business decisions
+
+TARGET USERS
+- Sales teams
+- Business analysts
+- Management and decision-makers
+
+KEY FEATURES
+- Automated sales data ingestion and preprocessing
+- Machine learning-based sales forecasting
+- Interactive Power BI dashboard
+- Scheduled data refresh and model execution
+- Cloud-based deployment for accessibility
+
+OUT OF SCOPE
+- Real-time streaming analytics
+- Deep learning–based forecasting
+- User authentication and role-based access
+
+SUCCESS METRICS
+- Forecast accuracy higher than baseline models
+- Fully automated data refresh pipeline
+- Clear visualization of KPIs and trends
+- Stable and reliable cloud deployment

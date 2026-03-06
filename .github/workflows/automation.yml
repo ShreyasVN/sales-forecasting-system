@@ -1,0 +1,34 @@
+name: Sales Forecasting Pipeline
+
+on:
+  schedule:
+    # Runs at 00:00 UTC every day
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run Data Pipeline
+      run: python src/main.py
+
+    - name: Upload Predictions Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: sales-predictions
+        path: data/processed/sales_predictions.csv

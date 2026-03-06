@@ -1,0 +1,43 @@
+ARCHITECTURE OVERVIEW
+The system processes historical sales data, applies machine learning models to predict future sales, and visualizes insights using a business intelligence dashboard hosted on the cloud.
+
+SYSTEM FLOW
+1. Historical sales data is collected from structured sources
+2. Python scripts clean and preprocess the data
+3. Features are generated for forecasting
+4. Machine learning model is trained and evaluated
+5. Forecast results are stored
+6. Power BI dashboard visualizes insights
+7. Automated workflows refresh data and predictions
+
+COMPONENTS
+
+DATA SOURCE
+- CSV files or relational databases
+- Contains historical sales records
+
+DATA PROCESSING LAYER
+- Python for data cleaning and feature engineering
+- SQL for querying and aggregation
+
+ML MODELING LAYER
+- Forecasting model trained on historical data
+- Model evaluation using validation metrics
+
+AUTOMATION LAYER
+- GitHub Actions schedules data processing and model runs
+- Ensures consistent and repeatable execution
+
+VISUALIZATION LAYER
+- Power BI dashboard
+- Displays sales trends, forecasts, and KPIs
+
+DEPLOYMENT LAYER
+- AWS EC2 for hosting analytics services
+- Docker for consistent runtime environments
+
+DESIGN PRINCIPLES
+- Automation-first approach
+- Scalable and modular design
+- Clear and interpretable analytics
+- Cloud-ready architecture

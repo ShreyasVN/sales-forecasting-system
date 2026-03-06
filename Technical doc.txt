@@ -1,0 +1,47 @@
+TECH STACK
+Programming Language: Python
+Data Querying: SQL
+Visualization: Power BI
+Automation: GitHub Actions
+Containerization: Docker
+Cloud Platform: AWS (EC2)
+
+DATA PIPELINE
+- Load historical sales data
+- Clean and preprocess data
+- Perform feature engineering
+- Store processed data for modeling
+
+MACHINE LEARNING WORKFLOW
+- Train sales forecasting model
+- Validate model performance
+- Generate future sales predictions
+- Save prediction outputs for visualization
+
+AUTOMATION SETUP
+- GitHub Actions triggers workflows on schedule or commit
+- Automates data refresh and model execution
+- Ensures reproducible runs
+
+DEPLOYMENT PROCESS
+- Docker image built for analytics service
+- Deployed on AWS EC2
+- Power BI connects to processed data outputs
+
+DASHBOARD FEATURES
+- Sales trends over time
+- Forecasted sales values
+- Key performance indicators
+- Interactive filters and drill-downs
+
+ASSUMPTIONS
+- Structured historical sales data is available
+- Batch-based data processing
+- Moderate data volume
+
+FUTURE ENHANCEMENTS
+- Time-series cross-validation
+- Cloud-native databases
+- Advanced forecasting models
+- Model performance monitoring
+- Automated retraining pipeline
