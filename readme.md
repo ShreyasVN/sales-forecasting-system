@@ -1,168 +1,220 @@
-```markdown
-# AI-Driven Sales Analytics and Forecasting Dashboard
+# MLOps Pipeline: Automated Sales Analytics & Forecasting
 
-![Project Cover Image](images/Project%20Cover%20Image.png)
+![Project Cover Image](images/project-cover.png)
 
-## 📖 Overview
-This project provides an end-to-end automated solution for analyzing historical sales data and forecasting future trends. By leveraging machine learning and cloud-native architecture, it empowers sales teams and management to make data-driven decisions without manual reporting overhead.
+## 📖 System Overview
 
----
+This project implements an automated **MLOps-style data pipeline** for sales forecasting.  
+It demonstrates the complete lifecycle of a machine learning workflow, from raw data processing to containerized model execution and business intelligence integration.
 
-## 🏗️ Architecture
-The system is designed as a modular, automated pipeline moving from data ingestion to visualization.
-
-![System Architecture Diagram](images/System%20Architecture%20Diagram.png)
-
-**System Flow:**
-1. **Ingestion:** Historical data is loaded from `data/raw/`.
-2. **Processing:** Python scripts clean, aggregate, and engineer features (lag variables, rolling averages).
-3. **Modeling:** A Random Forest regressor is trained to predict future sales.
-4. **Visualization:** Forecast results are exported for Power BI dashboards.
-5. **Automation:** GitHub Actions schedules daily execution to refresh predictions.
+The system processes sales datasets, performs ETL operations, trains a machine learning model, and generates forecast outputs that can be consumed by analytics dashboards.
 
 ---
 
-## 🚀 Key Features
-- **Automated Data Pipeline:** Handles missing values, date formatting, and feature generation automatically.
-- **Machine Learning Forecasting:** Uses Random Forest regression to predict daily sales volumes with accuracy metrics.
-- **Interactive Dashboard:** Ready-to-use data output for Power BI visualization.
-- **Cloud Ready:** Containerized with Docker and deployable on AWS EC2.
-- **CI/CD Integration:** Fully automated workflows using GitHub Actions.
+# 🏗 Architecture Overview
 
----
+The pipeline transforms raw sales data into predictive insights through a structured workflow.
 
-## 🛠 Tech Stack
-
-| Component | Technology |
-| :--- | :--- |
-| **Language** | Python |
-| **Data Processing** | Pandas, NumPy, Scikit-Learn |
-| **Visualization** | Power BI |
-| **Containerization** | Docker |
-| **Cloud** | AWS EC2 |
-| **Automation** | GitHub Actions |
-
----
-
-## 📁 Project Structure
-
-```text
-sales-forecasting-system/
-├── .github/
-│   └── workflows/
-│       └── automation.yml      # CI/CD Pipeline definition
-├── data/
-│   ├── raw/
-│   │   └── store_sales.csv     # Input historical data
-│   └── processed/
-│       └── sales_predictions.csv # Output for Power BI
-├── images/                     # Visual assets and diagrams
-├── models/
-│   └── sales_model.pkl         # Serialized ML model
-├── src/
-│   ├── config.py               # Configuration settings
-│   ├── data_processing.py      # ETL and Feature Engineering
-│   ├── train_model.py          # Training logic
-│   └── main.py                 # Entry point
-├── Dockerfile                  # Container definition
-├── requirements.txt            # Python dependencies
-└── README.md
+### Pipeline Workflow
 
 ```
+Raw Sales Dataset
+        ↓
+Data Cleaning & ETL (Pandas)
+        ↓
+Feature Engineering
+(Lag Features, Rolling Averages)
+        ↓
+Model Training
+(Random Forest Regressor)
+        ↓
+Forecast Generation
+        ↓
+Export Prediction Dataset
+        ↓
+Business Intelligence Dashboard
+(Power BI)
+```
+
+This workflow supports automated data analysis and predictive insights for business decision making.
 
 ---
 
-## 🚀 Getting Started
+# ⚙️ Pipeline Automation
 
-### Prerequisites
+The system is designed to support **automated execution using CI/CD workflows and containerized environments**.
 
-* Python 3.9+
-* Docker (optional, for containerization)
-* Power BI Desktop (for visualization)
+### GitHub Actions
 
-### 1. Clone the Repository
+Automated workflows ensure:
 
-```bash
-git clone <your-repo-url>
-cd sales-forecasting-system
+- pipeline execution validation
+- dependency stability
+- automated build verification
+
+Scheduled retraining can be configured using cron-based workflows.
+
+Example schedule:
 
 ```
+0 0 * * *
+```
 
-### 2. Install Dependencies
+This allows automated daily pipeline execution.
+
+---
+
+# 🛠 Technology Stack
+
+| Domain | Technology | Implementation |
+|------|-------------|----------------|
+| Cloud Deployment | AWS EC2 | Container runtime environment |
+| Containerization | Docker | Reproducible pipeline execution |
+| CI/CD Automation | GitHub Actions | Pipeline validation and scheduling |
+| Data Engineering | Python, Pandas, NumPy | ETL processing and feature engineering |
+| Machine Learning | Scikit-learn | Random Forest Regression model |
+| Visualization | Power BI | Business KPI dashboards |
+
+---
+
+# 🚀 Deployment Runbook
+
+## 1. Containerized Execution (Recommended)
+
+Build the container image:
 
 ```bash
+docker build -t sales-forecast-mlops .
+
+Run the pipeline container:
+
+docker run -v $(pwd)/data:/app/data sales-forecast-mlops
+
+This executes the full ETL and ML forecasting workflow in a containerized environment.
+
+
+---
+
+2. Local Development Setup
+
+Clone the repository:
+
+git clone <repo-url>
+cd sales-forecast-mlops
+
+Create virtual environment:
+
 python -m venv venv
-source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+source venv/bin/activate
+
+Install dependencies:
+
 pip install -r requirements.txt
 
-```
+Run the pipeline manually:
 
-### 3. Setup Data
-
-Ensure the `store_sales.csv` file is placed in the `data/raw/` directory.
-*(If not present, download it from [skforecast-datasets](https://www.google.com/search?q=https://raw.githubusercontent.com/skforecast/skforecast-datasets/main/data/store_sales.csv))*
-
-### 4. Run the Pipeline
-
-```bash
 python src/main.py
 
-```
-
-### 5. Visualize in Power BI
-
-1. Open Power BI Desktop.
-2. Click **Get Data** -> **Text/CSV**.
-3. Select `data/processed/sales_predictions.csv`.
-4. Use the `date` field for the X-axis and `actual_sales` / `predicted_sales` for values.
 
 ---
 
-## 🤖 Machine Learning Workflow
+📊 Output Artifacts
 
-The model utilizes a Random Forest Regressor trained on time-series features:
+The pipeline generates a structured dataset for downstream analytics:
 
-* **Lag Features:** Sales from previous days (`lag_1`, `lag_2`).
-* **Rolling Statistics:** 3-day moving average.
-* **Temporal Features:** Day of week, month, weekend flag.
+data/processed/sales_predictions.csv
 
----
+This dataset contains:
 
-## 🔄 Automation & CI/CD
+predicted sales values
 
-The project uses GitHub Actions to automate the forecasting pipeline. The workflow is triggered daily (Cron: `0 0 * * *`) to ensure the model is retrained with the latest data.
+forecasted time-series metrics
 
----
+processed business indicators
 
-## 🌐 Deployment
 
-The application is containerized using Docker for easy deployment to AWS EC2.
+The output can be directly imported into Power BI dashboards.
 
-**Build Image:**
-
-```bash
-docker build -t sales-forecast-app .
-
-```
-
-**Run Container:**
-
-```bash
-docker run -v $(pwd)/data:/app/data sales-forecast-app
-
-```
 
 ---
 
-## 📊 Success Metrics
+🔄 Continuous Integration
 
-* **Forecast Accuracy:** Model consistently outperforms baseline naive forecasts.
-* **Automation:** Zero-touch data refresh and model retraining.
-* **Clarity:** Clear visualization of KPIs and trends in the dashboard.
+GitHub Actions workflows validate:
+
+pipeline execution
+
+container build stability
+
+dependency compatibility
+
+
+This ensures reliable automated pipeline runs.
+
 
 ---
 
-## 📝 License
+📂 Repository Structure
 
-This project is for educational and internal business demonstration purposes.
+sales-forecast-mlops/
+│
+├── data/
+│   ├── raw/
+│   └── processed/
+│
+├── src/
+│   ├── etl_pipeline.py
+│   ├── feature_engineering.py
+│   ├── model_training.py
+│   └── main.py
+│
+├── docker/
+│   └── Dockerfile
+│
+├── .github/workflows/
+│   └── automation.yml
+│
+└── requirements.txt
 
+
+---
+
+📈 Key Learning Outcomes
+
+Through this project I gained practical experience with:
+
+building automated data engineering pipelines
+
+implementing containerized ML workflows
+
+integrating machine learning with business analytics dashboards
+
+designing reproducible execution environments using Docker
+
+validating pipelines using CI/CD automation
+
+
+
+---
+
+🔮 Future Improvements
+
+Planned enhancements include:
+
+cloud-native deployment using AWS managed services
+
+integrating S3 for data storage
+
+implementing model monitoring and drift detection
+
+adding automated retraining triggers
+
+
+
+---
+
+👨‍💻 Author
+
+Shreyas Neelaraddi Cloud / DevOps & MLOps Engineer
+
+GitHub: https://github.com/ShreyasVN
